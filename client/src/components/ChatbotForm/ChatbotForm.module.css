@@ -2,9 +2,10 @@
 	width: 100%;
 	display: flex;
 	gap: 10px;
-	padding-bottom: 5px;
+	padding: 10px 0;
 	position: absolute;
 	bottom: 0;
+	background-color: rgb(35, 31, 67);
 }
 
 .input {

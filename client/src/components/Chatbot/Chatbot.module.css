@@ -1,14 +1,13 @@
 .chatbotContainer {
-	height: 450px;
+	height: 500px;
 	width: 350px;
 	border: 1px solid #ccc;
 	border-radius: 8px;
-	padding: 10px;
 	background-color: #fff;
 	position: fixed;
 	bottom: 100px;
 	right: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 8px 0 #ffffff;
 	overflow: hidden;
 }
 
