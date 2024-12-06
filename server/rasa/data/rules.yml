@@ -1,0 +1,32 @@
+version: "3.1"
+
+rules:
+  - rule: Respond to greetings
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: Handle goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Handle unknown input
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - rule: Respond to jokes
+    steps:
+      - intent: joke
+      - action: utter_joke
+
+  - rule: Respond to laughter
+    steps:
+      - intent: laugh
+      - action: utter_laugh
+
+  - rule: Handle bot challenge
+    steps:
+      - intent: bot_challenge
+      - action: utter_bot_challenge

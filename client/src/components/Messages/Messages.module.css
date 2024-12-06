@@ -1,0 +1,8 @@
+.messagesContainer {
+	display: flex;
+	flex-direction: column;
+	max-height: 350px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 10px;
+}

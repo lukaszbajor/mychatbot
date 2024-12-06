@@ -1,0 +1,25 @@
+.chatbotContainer {
+	height: 450px;
+	width: 350px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 10px;
+	background-color: #fff;
+	position: fixed;
+	bottom: 100px;
+	right: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+}
+
+.toggleButton {
+	position: fixed;
+	bottom: 50px;
+	right: 20px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 8px 16px;
+	cursor: pointer;
+}

@@ -1,0 +1,82 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - Cześć
+      - Witaj
+      - Hej
+      - Jak się masz?
+      - Dzień dobry
+
+  - intent: ask_skills
+    examples: |
+      - Jakie masz umiejętności?
+      - W czym jesteś dobry?
+      - Jakie technologie znasz?
+      - Jakich narzędzi używasz?
+
+  - intent: ask_experience
+    examples: |
+      - Jakie masz doświadczenie?
+      - Gdzie pracowałeś?
+      - Czy możesz opowiedzieć o swoich projektach?
+      - Co robiłeś w swojej pracy?
+
+  - intent: ask_projects
+    examples: |
+      - Jakie projekty stworzyłeś?
+      - Opowiedz o swoich projektach.
+      - W jakie aplikacje pracowałeś?
+      - Co ciekawego zrobiłeś w React?
+
+  - intent: ask_mood
+    examples: |
+      - Jak się czujesz?
+      - Co u Ciebie?
+      - Jakie masz samopoczucie?
+      - Wszystko w porządku?
+
+  - intent: goodbye
+    examples: |
+      - Do widzenia
+      - Na razie
+      - Żegnaj
+      - Trzymaj się
+      - Pa!
+
+  - intent: out_of_scope
+    examples: |
+      - Gdzie jest najbliższa kawiarnia?
+      - Ile to jest 12 razy 14?
+      - Powiedz coś śmiesznego.
+
+  - intent: joke
+    examples: |
+      - Opowiedz mi żart
+      - Masz jakiś dowcip?
+      - Powiedz mi coś śmiesznego
+      - Chciałbym usłyszeć żart
+      - Rozbaw mnie!
+      - Żart
+      - Opowiedz kawał
+      - Opowiedz kawała
+      - Suchar
+
+  - intent: laugh
+    examples: |
+      - hahaha
+      - hah
+      - hah
+      - hehe
+      - hehehe
+      - śmieszne
+      - to było zabawne
+      - umieram ze śmiechu
+
+  - intent: bot_challenge
+    examples: |
+      - Czy jesteś botem?
+      - Czy jesteś człowiekiem?
+      - Kim jesteś?
+      - Z kim rozmawiam?

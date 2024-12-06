@@ -1,0 +1,43 @@
+version: "3.1"
+
+intents:
+  - greet
+  - ask_skills
+  - ask_experience
+  - ask_projects
+  - ask_mood
+  - goodbye
+  - out_of_scope
+  - joke
+  - laugh
+  - bot_challenge
+
+responses:
+  utter_greet:
+    - text: "Cześć! W czym mogę pomóc?"
+  utter_goodbye:
+    - text: "Do zobaczenia! Powodzenia!"
+  utter_ask_skills:
+    - text: "Pracuję z technologiami frontendowymi jak React i TypeScript, a także z backendem w Pythonie i Node.js."
+  utter_ask_experience:
+    - text: "Mam doświadczenie w testowaniu manualnym i automatycznym, tworzeniu aplikacji webowych i rozwijaniu botów."
+  utter_ask_projects:
+    - text: "Stworzyłem m.in. system do zarządzania finansami, aplikację kulinarną i kilka stron dla klientów w HTML, CSS i JS."
+  utter_ask_mood:
+    - text: "Dziękuję, czuję się dobrze. A jak Ty się masz?"
+  utter_out_of_scope:
+    - text: "Przepraszam, ale tego nie rozumiem. Możesz sformułować pytanie inaczej?"
+  utter_joke:
+    - text: "Dlaczego programista nie może się umówić na randkę? Bo zawsze ma zbyt wiele bugów!"
+  utter_laugh:
+    - text: "Haha, cieszę się, że Ci się podobało! 😄"
+  utter_bot_challenge:
+    - text: "Jestem botem! Zawsze chętny do rozmowy, ale nie mam jeszcze poczucia humoru jak człowiek!"
+    - text: "Tak, jestem botem! Ale nie martw się, jestem świetnym rozmówcą!"
+    - text: "Oczywiście, że jestem botem! Chociaż, gdybyś mnie zapytał, chętnie bym się na chwilę 'oszukał' i poczuł jak człowiek!"
+    - text: "Tak, to prawda. Botem jestem, ale chętnie porozmawiam jak człowiek, jeśli tylko chcesz!"
+    - text: "Masz rację, jestem botem, ale zawsze gotowy na ciekawą rozmowę!"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

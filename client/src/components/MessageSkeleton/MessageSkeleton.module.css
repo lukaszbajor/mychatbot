@@ -1,0 +1,54 @@
+.messageSkeleton {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	background-color: #ccc;
+	border-radius: 50%;
+	animation: skeleton-loading 1.5s infinite linear;
+}
+
+.content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.line {
+	height: 10px;
+	background-color: #ccc;
+	border-radius: 5px;
+	animation: skeleton-loading 1.5s infinite linear;
+}
+
+.line.short {
+	width: 50%;
+}
+
+.line:not(.short) {
+	width: 100%;
+}
+.messageSkeleton:nth-child(even) {
+	flex-direction: row-reverse;
+}
+
+@keyframes skeleton-loading {
+	0% {
+		background-color: #ccc;
+	}
+	50% {
+		background-color: #ddd;
+	}
+	100% {
+		background-color: #ccc;
+	}
+}

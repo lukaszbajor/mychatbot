@@ -1,0 +1,52 @@
+version: "3.1"
+
+stories:
+  - story: Greet and ask about skills
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_skills
+      - action: utter_ask_skills
+
+  - story: Greet, ask about experience
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_experience
+      - action: utter_ask_experience
+
+  - story: Ask about projects
+    steps:
+      - intent: ask_projects
+      - action: utter_ask_projects
+
+  - story: Mood check
+    steps:
+      - intent: ask_mood
+      - action: utter_ask_mood
+      - intent: ask_mood
+      - action: utter_ask_mood
+
+  - story: Goodbye interaction
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - story: Greet and tell a joke
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: joke
+      - action: utter_joke
+
+  - story: Laughing interaction
+    steps:
+      - intent: laugh
+      - action: utter_laugh
+
+  - story: Bot challenge and joking
+    steps:
+      - intent: bot_challenge
+      - action: utter_bot_challenge
+      - intent: joke
+      - action: utter_joke

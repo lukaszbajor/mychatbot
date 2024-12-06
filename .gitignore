@@ -1,0 +1,18 @@
+# Ignoruj folder node_modules w folderze klient
+client/node_modules/
+
+# Ignoruj folder server_env w folderze serwer
+server/server_env/
+
+# Ignoruj folder rasa-env w serwer/rasa
+server/rasa/rasa-env/
+
+server/rasa/.rasa
+
+server/rasa/models
+
+# Opcjonalnie ignoruj pliki tymczasowe/środowiskowe
+*.env
+*.log
+*.pyc
+.DS_Store
