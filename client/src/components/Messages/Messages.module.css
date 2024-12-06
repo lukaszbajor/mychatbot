@@ -1,8 +1,10 @@
 .messagesContainer {
 	display: flex;
 	flex-direction: column;
-	max-height: 350px;
+	max-height: 360px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	padding: 10px;
+	padding: 10px 15px;
+	border-left: 1px solid rgb(35, 31, 67);
+	border-right: 1px solid rgb(35, 31, 67);
 }

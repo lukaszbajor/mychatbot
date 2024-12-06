@@ -1,13 +1,24 @@
+.messageContainer{
+	display: flex;
+	justify-content: flex-end;
+}
+.messageBotContainer{
+	justify-content: flex-start;
+	
+}
 .message {
 	display: flex;
 	flex-direction: column;
-	align-self: flex-end;
+	justify-content: flex-end;
 	max-width: 70%;
 	margin-bottom: 10px;
-	border-radius: 8px;
-	background-color: #25435d;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 15px;
+	border: 1px solid #221d41;
+	background-color: white;
+	color: #221d41;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 	word-break: break-word;
+	font-weight: 300;
 }
 
 .messageText {
@@ -21,5 +32,21 @@ p {
 }
 .botMessage {
 	color: red;
-	align-self: flex-start;
+	justify-content: flex-start;
+	background-color: #221d41;
+	color: white;
+}
+.robotContainer{
+	margin-right: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 25px;
+	padding: 7px;
+	border: 1px solid #221d41;
+	border-radius: 50%
+}
+.robot{
+	font-size: 18px;
+	color: #221d41;
 }

@@ -2,12 +2,21 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 10px;
+	/* margin-bottom: 10px; */
+	padding:20px 0;
+	/* border-bottom: 1px solid black; */
+	color: white;
+	background-color: rgb(35, 31, 67);
+	
 }
 
 .title {
 	margin: 0;
 	font-size: 18px;
+	text-align: center;
+	flex-grow: 2;
+	letter-spacing: 2px;
+	
 }
 
 .close-button {
