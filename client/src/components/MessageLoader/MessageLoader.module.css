@@ -1,14 +1,23 @@
 .messageLoader {
 	display: flex;
-	align-items: center;
-	gap: 5px;
-	margin: 10px 0;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: 10px;
+	border-radius: 15px;
+	padding: 15px 5px;
+	width: 45px;
+	background-color: #221d41;
+	color: #221d41;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+	word-break: break-word;
+	font-weight: 300;
 }
 
 .messageLoaderBubble {
-	width: 10px;
-	height: 10px;
-	background-color: #ccc;
+	width: 6px;
+	height: 6px;
+	margin: 2px;
+	background-color: white;
 	border-radius: 50%;
 	animation: bubble-bounce 1.5s infinite ease-in-out;
 }

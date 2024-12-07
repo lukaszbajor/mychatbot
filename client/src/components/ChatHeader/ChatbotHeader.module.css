@@ -3,7 +3,7 @@
 	justify-content: space-between;
 	align-items: center;
 	/* margin-bottom: 10px; */
-	padding:20px 0;
+	padding:25px 0;
 	/* border-bottom: 1px solid black; */
 	color: white;
 	background-color: rgb(35, 31, 67);
@@ -12,16 +12,19 @@
 
 .title {
 	margin: 0;
+	padding-left: 15px;
 	font-size: 18px;
-	text-align: center;
+	text-align: left;
 	flex-grow: 2;
 	letter-spacing: 2px;
 	
 }
 
-.close-button {
+.closeButton {
+	margin-right: 10px;
 	background: transparent;
 	border: none;
 	font-size: 20px;
 	cursor: pointer;
+	color: white;
 }

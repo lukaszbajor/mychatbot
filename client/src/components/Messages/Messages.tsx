@@ -7,12 +7,22 @@ import styles from "./Messages.module.css";
 const Messages = () => {
 	const { messages } = useChat();
 	const messagesEndRef = useRef<HTMLDivElement | null>(null);
+	
+	const scrollToBottom = () => {
+		if (messagesEndRef.current) {
+		  messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+		}
+	  };
 
 	useEffect(() => {
-		if (messagesEndRef.current) {
-			messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
-		}
+		scrollToBottom();
+		const timer = setTimeout(() => {
+			scrollToBottom(); 
+		  }, 2550);
+	  
+		  return () => clearTimeout(timer); 
 	}, [messages]);
+	
 
 	return (
 		<div className={styles.messagesContainer} ref={messagesEndRef}>
