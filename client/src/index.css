@@ -1,3 +1,6 @@
-html,button{
+html,button,textarea{
 	font-family: "Roboto", sans-serif;
+}
+body{
+    background-color: #6e6565;
 }

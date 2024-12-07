@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useChat } from "../../context/ChatbotContext";
 import styles from "./ChatbotForm.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 function ChatForm() {
 	const [input, setInput] = useState("");
@@ -23,15 +25,14 @@ function ChatForm() {
 
 	return (
 		<div className={styles.formContainer}>
-			<input
-				type="text"
+			<textarea
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
 				placeholder="Napisz wiadomość..."
-				className={styles.input}
+				className={styles.textValue}
 			/>
 			<button onClick={handleSendMessage} className={styles.button}>
-				Wyślij
+			<FontAwesomeIcon icon={faPaperPlane} />
 			</button>
 		</div>
 	);
