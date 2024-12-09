@@ -10,9 +10,8 @@ import { faRobot, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
-  const { socket, messages } = useChat();
+  const { socket, messages, isOpen, setIsOpen } = useChat();
 
   const toggleChat = () => setIsOpen((prevState) => !prevState);
 

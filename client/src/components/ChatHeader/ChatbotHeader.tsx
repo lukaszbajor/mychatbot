@@ -3,28 +3,71 @@ import {
   faRobot,
   faX,
   faEllipsisVertical,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
+import { useChat } from "../../context/ChatbotContext";
 import styles from "./ChatbotHeader.module.css";
+import { useState } from "react";
 
 interface ChatbotHeaderProps {
   toggleChat: () => void;
 }
 
 function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
+  const [moreBtnsIsOpen, setMoreBtnsIsOpen] = useState(false);
+
+  const { setMessages, socket, setConversationId, setIsOpen } = useChat();
+
+  function handleDisconnectChat() {
+    if (socket) {
+      socket.disconnect(); // Rozłączamy socket
+      console.log("Disconnected from chat");
+
+      // Resetowanie wiadomości i conversationId
+      setMessages([]); // Czyszczenie wiadomości
+      setConversationId(null); // Resetowanie ID konwersacji
+
+      // Ponowne połączenie i rozpoczęcie nowej konwersacji
+      socket.connect(); // Łączymy się ponownie
+      console.log("Reconnected to chat");
+
+      // Możesz tu dodać inicjalizację nowej sesji
+      //   socket.emit("session_request", { conversation_id: null }); // Rozpoczynamy nową konwersację
+    }
+
+    setMoreBtnsIsOpen(false);
+    setIsOpen(false);
+  }
   return (
-    <div className={styles.header}>
-      <h3 className={styles.title}>
-        Wirtualny asystent <FontAwesomeIcon icon={faRobot} />
-      </h3>
-      <div>
-        <button className={styles.closeButton}>
-          <FontAwesomeIcon icon={faEllipsisVertical} />
-        </button>
-        <button className={styles.closeButton} onClick={toggleChat}>
-          <FontAwesomeIcon icon={faX} />
-        </button>
+    <>
+      <div className={styles.header}>
+        <h3 className={styles.title}>
+          Wirtualny asystent <FontAwesomeIcon icon={faRobot} />
+        </h3>
+        <div>
+          <button
+            className={styles.btn}
+            onClick={() => {
+              setMoreBtnsIsOpen(!moreBtnsIsOpen);
+            }}
+          >
+            <FontAwesomeIcon icon={faEllipsisVertical} />
+          </button>
+          <button className={styles.btn} onClick={toggleChat}>
+            <FontAwesomeIcon icon={faX} />
+          </button>
+        </div>
       </div>
-    </div>
+      {moreBtnsIsOpen && (
+        <div className={styles.moreBtns}>
+          <button className={styles.optionBtn} onClick={handleDisconnectChat}>
+            <FontAwesomeIcon icon={faTrashCan} />
+            Zakończ chat
+          </button>
+          <button className={styles.optionBtn}>Testowy</button>
+        </div>
+      )}
+    </>
   );
 }
 
