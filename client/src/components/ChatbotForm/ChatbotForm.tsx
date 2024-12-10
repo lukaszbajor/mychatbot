@@ -2,11 +2,45 @@ import { useState } from "react";
 import { useChat } from "../../context/ChatbotContext";
 import styles from "./ChatbotForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faMicrophone } from "@fortawesome/free-solid-svg-icons";
+
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
 
 function ChatForm() {
   const [input, setInput] = useState("");
-  const { socket, conversationId, setMessages } = useChat();
+  const { socket, conversationId, setMessages, setIsUnsupportedModalOpen } =
+    useChat();
+
+  const [isListening, setIsListening] = useState(false);
+
+  //mowa na tekst
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+
+  if (recognition) {
+    recognition.lang = "pl-PL"; // Ustaw język na polski
+    recognition.continuous = false;
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setInput((prevInput) => prevInput + " " + transcript); // Dodaj przetłumaczoną mowę do inputu
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error:", event.error);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+  }
 
   const handleSendMessage = () => {
     if (input.trim()) {
@@ -32,6 +66,16 @@ function ChatForm() {
     }
   };
 
+  const handleStartListening = () => {
+    if (recognition) {
+      setIsListening(true);
+      recognition.start();
+    } else {
+      // alert("Twoja przeglądarka nie obsługuje rozpoznawania mowy.");
+      setIsUnsupportedModalOpen(true);
+    }
+  };
+
   return (
     <div className={styles.formContainer}>
       <textarea
@@ -41,9 +85,19 @@ function ChatForm() {
         placeholder="Napisz wiadomość..."
         className={styles.textValue}
       />
-      <button onClick={handleSendMessage} className={styles.button}>
-        <FontAwesomeIcon icon={faPaperPlane} />
-      </button>
+      <div className={styles.btns}>
+        <button
+          onClick={handleStartListening}
+          className={`${styles.button} ${styles.buttonMicro} ${
+            isListening ? styles.active : ""
+          }`}
+        >
+          <FontAwesomeIcon icon={faMicrophone} />
+        </button>
+        <button onClick={handleSendMessage} className={styles.button}>
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </button>
+      </div>
     </div>
   );
 }
