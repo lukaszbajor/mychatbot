@@ -22,15 +22,19 @@
 }
 
 .messageText {
-	justify-content: start;
+	display: flex;
+	justify-content: space-between;
 	font-size: 16px;
 	word-break: break-word;
 }
 p {
 	margin: 0;
 	padding: 10px;
+	
 }
 .botMessage {
+	display: flex;
+	flex-direction: column;
 	color: red;
 	justify-content: flex-start;
 	background-color: #221d41;
@@ -50,3 +54,64 @@ p {
 	font-size: 18px;
 	color: #221d41;
 }
+.readMessageButton{
+	min-height: 30px;
+	min-width: 30px;
+	align-self: flex-end;
+	margin: 5px;
+	padding: 5px;
+	background-color: transparent;
+	border: 1px solid white;
+	color: white;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: .3s;
+	position: relative;
+    overflow: hidden; 
+}
+.readMessageButton:hover{
+	background-color: rgb(46, 41, 83);
+}
+
+.active{
+	color: white;
+	animation: pulse 1.5s infinite; 
+}
+
+@keyframes pulse {
+	0% {
+	  box-shadow: 0 0 0 0 rgb(250, 248, 248); /* Start: mały cień */
+	}
+	50% {
+	  box-shadow: 0 0 15px 10px rgba(128, 128, 128, 0.3); /* Fala rośnie */
+	}
+	100% {
+	  box-shadow: 0 0 30px 20px rgba(255, 0, 0, 0); /* Fala zanika */
+	}
+  }
+  
+  /* Dodatkowy efekt fal radiowych */
+  .readMessageButton.active::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	border: 2px solid rgb(218, 216, 216);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	animation: ripple 1.5s infinite;
+  }
+  
+  /* Fala radiowa */
+  @keyframes ripple {
+	0% {
+	  transform: translate(-50%, -50%) scale(1);
+	  opacity: 1;
+	}
+	100% {
+	  transform: translate(-50%, -50%) scale(1.5);
+	  opacity: 0;
+	}
+  }

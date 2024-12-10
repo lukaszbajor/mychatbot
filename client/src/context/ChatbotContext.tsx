@@ -17,10 +17,19 @@ interface ChatContextType {
   messages: Message[];
   isOpen: boolean;
   isUnsupportedModalOpen: boolean;
+  isVoiceReadingEnabled: boolean; // Nowa opcja
+  isVoiceInputEnabled: boolean; // Nowa opcja
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   setConversationId: React.Dispatch<React.SetStateAction<string | null>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsUnsupportedModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSpeechRecognitionSupported: boolean;
+  isSpeechSynthesisSupported: boolean;
+  showUnsupportedModal: (message: string) => void;
+  closeUnsupportedModal: () => void;
+  unsupportedMessage: string | null;
+  setIsVoiceReadingEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsVoiceInputEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -33,6 +42,25 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isUnsupportedModalOpen, setIsUnsupportedModalOpen] =
     useState<boolean>(false);
+  const [unsupportedMessage, setUnsupportedMessage] = useState<string | null>(
+    null
+  );
+  const [isVoiceReadingEnabled, setIsVoiceReadingEnabled] = useState(true);
+  const [isVoiceInputEnabled, setIsVoiceInputEnabled] = useState(true);
+
+  const isSpeechRecognitionSupported =
+    "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
+  const isSpeechSynthesisSupported = "speechSynthesis" in window;
+
+  const showUnsupportedModal = (message: string) => {
+    setUnsupportedMessage(message);
+    setIsUnsupportedModalOpen(true);
+  };
+
+  const closeUnsupportedModal = () => {
+    setUnsupportedMessage(null);
+    setIsUnsupportedModalOpen(false);
+  };
 
   // Inicjalizacja WebSocket
   useEffect(() => {
@@ -81,10 +109,19 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         messages,
         isOpen,
         isUnsupportedModalOpen,
+        isVoiceReadingEnabled,
+        isVoiceInputEnabled,
         setMessages,
         setConversationId,
         setIsOpen,
         setIsUnsupportedModalOpen,
+        isSpeechRecognitionSupported,
+        isSpeechSynthesisSupported,
+        showUnsupportedModal,
+        closeUnsupportedModal,
+        unsupportedMessage,
+        setIsVoiceReadingEnabled,
+        setIsVoiceInputEnabled,
       }}
     >
       {children}
