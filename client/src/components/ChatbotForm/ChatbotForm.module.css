@@ -21,6 +21,10 @@
 	resize:none;
 }
 
+.btns{
+	display: flex;
+}
+
 .button {
 	margin-right: 15px;
 	padding: 10px;
@@ -30,8 +34,57 @@
 	border-radius: 50%;
 	cursor: pointer;
 	transition: .3s;
+	position: relative; /* Potrzebne dla pseudo-elementów */
+    overflow: hidden; /* Ukrycie nadmiarowych animacji */
 }
 
 .button:hover {
 	background-color: rgb(46, 41, 83);
 }
+
+.buttonMicro{
+	padding: 0 12px;
+	
+}
+.active{
+	color: red;
+	animation: pulse 1.5s infinite; 
+}
+
+@keyframes pulse {
+	0% {
+	  box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); /* Start: mały cień */
+	}
+	50% {
+	  box-shadow: 0 0 15px 10px rgba(255, 0, 0, 0.3); /* Fala rośnie */
+	}
+	100% {
+	  box-shadow: 0 0 30px 20px rgba(255, 0, 0, 0); /* Fala zanika */
+	}
+  }
+  
+  /* Dodatkowy efekt fal radiowych */
+  .button.active::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	border: 2px solid rgba(255, 0, 0, 0.5);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	animation: ripple 1.5s infinite;
+  }
+  
+  /* Fala radiowa */
+  @keyframes ripple {
+	0% {
+	  transform: translate(-50%, -50%) scale(1);
+	  opacity: 1;
+	}
+	100% {
+	  transform: translate(-50%, -50%) scale(1.5);
+	  opacity: 0;
+	}
+  }

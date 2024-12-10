@@ -16,9 +16,11 @@ interface ChatContextType {
   conversationId: string | null;
   messages: Message[];
   isOpen: boolean;
+  isUnsupportedModalOpen: boolean;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   setConversationId: React.Dispatch<React.SetStateAction<string | null>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUnsupportedModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -28,7 +30,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isUnsupportedModalOpen, setIsUnsupportedModalOpen] =
+    useState<boolean>(false);
 
   // Inicjalizacja WebSocket
   useEffect(() => {
@@ -76,9 +80,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         conversationId,
         messages,
         isOpen,
+        isUnsupportedModalOpen,
         setMessages,
         setConversationId,
         setIsOpen,
+        setIsUnsupportedModalOpen,
       }}
     >
       {children}

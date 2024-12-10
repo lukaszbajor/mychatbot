@@ -58,14 +58,6 @@ async def session_request(sid, data):
     async def connect():
         logging.info(f"Rasa connect")
 
-    @rasa_sio.on("connect_error")
-    async def connect_error(error):
-        logging.error(f"Rasa connect_error, {error}")
-
-    @rasa_sio.on("disconnect")
-    async def disconnect():
-        logging.error(f"Rasa disconnect")
-
     @rasa_sio.on("session_confirm")
     async def session_confirm(conversation_id):
         print(f"session_confirm, {conversation_id}")
@@ -76,6 +68,14 @@ async def session_request(sid, data):
     async def bot_uttered(data):
         print(f"botutrr: {data}")
         await sio.emit("bot_uttered", data, to=sid)
+
+    @rasa_sio.on("connect_error")
+    async def connect_error(error):
+        logging.error(f"Rasa connect_error, {error}")
+
+    @rasa_sio.on("disconnect")
+    async def disconnect():
+        logging.error(f"Rasa disconnect")
 
 
 # Krok 3: Wysyłanie wiadomości użytkownika do Rasa
