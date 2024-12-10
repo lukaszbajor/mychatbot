@@ -4,6 +4,8 @@ import {
   faX,
   faEllipsisVertical,
   faTrashCan,
+  faVolumeUp,
+  faMicrophone,
 } from "@fortawesome/free-solid-svg-icons";
 import { useChat } from "../../context/ChatbotContext";
 import styles from "./ChatbotHeader.module.css";
@@ -16,7 +18,16 @@ interface ChatbotHeaderProps {
 function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
   const [moreBtnsIsOpen, setMoreBtnsIsOpen] = useState(false);
 
-  const { setMessages, socket, setConversationId, setIsOpen } = useChat();
+  const {
+    setMessages,
+    socket,
+    setConversationId,
+    setIsOpen,
+    isVoiceReadingEnabled,
+    setIsVoiceReadingEnabled,
+    isVoiceInputEnabled,
+    setIsVoiceInputEnabled,
+  } = useChat();
 
   function handleDisconnectChat() {
     if (socket) {
@@ -64,7 +75,26 @@ function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
             <FontAwesomeIcon icon={faTrashCan} />
             Zakończ chat
           </button>
-          <button className={styles.optionBtn}>Testowy</button>
+          <button
+            className={styles.optionBtn}
+            onClick={() => {
+              setIsVoiceReadingEnabled((prev: any) => !prev);
+              setMoreBtnsIsOpen(!moreBtnsIsOpen);
+            }}
+          >
+            <FontAwesomeIcon icon={faVolumeUp} />
+            {isVoiceReadingEnabled ? "Wyłącz czytanie" : "Włącz czytanie"}
+          </button>
+          <button
+            className={styles.optionBtn}
+            onClick={() => {
+              setIsVoiceInputEnabled((prev: any) => !prev);
+              setMoreBtnsIsOpen(!moreBtnsIsOpen);
+            }}
+          >
+            <FontAwesomeIcon icon={faMicrophone} />
+            {isVoiceInputEnabled ? "Wyłącz mikrofon" : "Włącz mikrofon"}
+          </button>
         </div>
       )}
     </>

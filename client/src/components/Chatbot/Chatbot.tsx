@@ -18,6 +18,7 @@ function Chatbot() {
     setIsOpen,
     isUnsupportedModalOpen,
     setIsUnsupportedModalOpen,
+    unsupportedMessage,
   } = useChat();
 
   const toggleChat = () => setIsOpen((prevState) => !prevState);
@@ -58,12 +59,14 @@ function Chatbot() {
           />
         )}
       </button>
-      {isUnsupportedModalOpen && (
+      {isUnsupportedModalOpen && unsupportedMessage && (
         <UnsupportedBrowserModal
           onClose={() => {
             setIsUnsupportedModalOpen(false);
           }}
-        />
+        >
+          {unsupportedMessage}
+        </UnsupportedBrowserModal>
       )}
     </>
   );

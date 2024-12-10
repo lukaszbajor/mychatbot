@@ -65,4 +65,5 @@ background-color: rgb(214, 214, 214);
 }
 .optionBtn:nth-child(even){
 	border-top:1px solid gray;
+	border-bottom:1px solid gray;
 }

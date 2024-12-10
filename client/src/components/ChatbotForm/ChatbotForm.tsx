@@ -13,8 +13,14 @@ declare global {
 
 function ChatForm() {
   const [input, setInput] = useState("");
-  const { socket, conversationId, setMessages, setIsUnsupportedModalOpen } =
-    useChat();
+  const {
+    socket,
+    conversationId,
+    setMessages,
+    setIsUnsupportedModalOpen,
+    showUnsupportedModal,
+    isVoiceInputEnabled,
+  } = useChat();
 
   const [isListening, setIsListening] = useState(false);
 
@@ -73,6 +79,9 @@ function ChatForm() {
     } else {
       // alert("Twoja przeglądarka nie obsługuje rozpoznawania mowy.");
       setIsUnsupportedModalOpen(true);
+      showUnsupportedModal(
+        "Twoja przeglądarka nie obsługuje funkcji rozpoznawania mowy."
+      );
     }
   };
 
@@ -86,14 +95,17 @@ function ChatForm() {
         className={styles.textValue}
       />
       <div className={styles.btns}>
-        <button
-          onClick={handleStartListening}
-          className={`${styles.button} ${styles.buttonMicro} ${
-            isListening ? styles.active : ""
-          }`}
-        >
-          <FontAwesomeIcon icon={faMicrophone} />
-        </button>
+        {isVoiceInputEnabled && (
+          <button
+            onClick={handleStartListening}
+            className={`${styles.button} ${styles.buttonMicro} ${
+              isListening ? styles.active : ""
+            }`}
+            title="Nagraj wiadomość."
+          >
+            <FontAwesomeIcon icon={faMicrophone} />
+          </button>
+        )}
         <button onClick={handleSendMessage} className={styles.button}>
           <FontAwesomeIcon icon={faPaperPlane} />
         </button>
