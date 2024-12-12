@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChat } from "../../context/ChatbotContext";
 import styles from "./ChatbotForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,11 +20,20 @@ function ChatForm() {
     setIsUnsupportedModalOpen,
     showUnsupportedModal,
     isVoiceInputEnabled,
+    isTyping,
   } = useChat();
 
   const [isListening, setIsListening] = useState(false);
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   //mowa na tekst
+
+  useEffect(() => {
+    if (!isTyping) {
+      textareaRef.current?.focus();
+    }
+  }, [isTyping]);
 
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -45,6 +54,7 @@ function ChatForm() {
 
     recognition.onend = () => {
       setIsListening(false);
+      textareaRef.current?.focus();
     };
   }
 
@@ -93,6 +103,8 @@ function ChatForm() {
         onKeyDown={handleClickEnterToSend}
         placeholder="Napisz wiadomość..."
         className={styles.textValue}
+        disabled={!socket?.connected || !socket || isTyping}
+        ref={textareaRef}
       />
       <div className={styles.btns}>
         {isVoiceInputEnabled && (
@@ -102,11 +114,16 @@ function ChatForm() {
               isListening ? styles.active : ""
             }`}
             title="Nagraj wiadomość."
+            disabled={!socket?.connected || isTyping}
           >
             <FontAwesomeIcon icon={faMicrophone} />
           </button>
         )}
-        <button onClick={handleSendMessage} className={styles.button}>
+        <button
+          onClick={handleSendMessage}
+          className={styles.button}
+          disabled={!socket?.connected || isTyping}
+        >
           <FontAwesomeIcon icon={faPaperPlane} />
         </button>
       </div>

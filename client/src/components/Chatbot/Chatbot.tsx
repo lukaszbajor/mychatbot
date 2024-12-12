@@ -37,7 +37,7 @@ function Chatbot() {
       {isOpen && (
         <div className={styles.chatbotContainer}>
           <ChatbotHeader toggleChat={toggleChat} />
-          {socket?.connected && messages.length !== 0 ? (
+          {socket?.connected ? (
             <Messages />
           ) : (
             <>

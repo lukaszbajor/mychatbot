@@ -8,9 +8,14 @@ import { useChat } from "../../context/ChatbotContext";
 type MessageProps = {
   sender: "user" | "bot";
   text: string;
+  prevSender?: "user" | "bot";
 };
 
-function Message({ sender, text }: MessageProps) {
+function Message({
+  sender,
+  text,
+}: // prevSender
+MessageProps) {
   const [showMessage, setShowMessage] = useState(sender !== "bot");
   const [activeSyntezor, setActiveSyntezor] = useState(false);
   const {
@@ -29,6 +34,11 @@ function Message({ sender, text }: MessageProps) {
   }, [sender]);
 
   const handleReadMessage = () => {
+    if (activeSyntezor) {
+      window.speechSynthesis.cancel();
+      setActiveSyntezor(false);
+      return;
+    }
     if ("speechSynthesis" in window && isSpeechSynthesisSupported) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = "pl-PL";
@@ -43,10 +53,6 @@ function Message({ sender, text }: MessageProps) {
       );
     }
   };
-
-  if (!showMessage && sender === "bot") {
-    return <MessageLoader />;
-  }
 
   return (
     <div

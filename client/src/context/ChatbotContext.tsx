@@ -19,6 +19,7 @@ interface ChatContextType {
   isUnsupportedModalOpen: boolean;
   isVoiceReadingEnabled: boolean; // Nowa opcja
   isVoiceInputEnabled: boolean; // Nowa opcja
+  isTyping: boolean;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   setConversationId: React.Dispatch<React.SetStateAction<string | null>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,6 +31,7 @@ interface ChatContextType {
   unsupportedMessage: string | null;
   setIsVoiceReadingEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsVoiceInputEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -51,6 +53,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const isSpeechRecognitionSupported =
     "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
   const isSpeechSynthesisSupported = "speechSynthesis" in window;
+  const [isTyping, setIsTyping] = useState(false);
+
+  const [queue, setQueue] = useState<Message[]>([]);
 
   const showUnsupportedModal = (message: string) => {
     setUnsupportedMessage(message);
@@ -72,34 +77,49 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       console.log("WebSocket connected");
       sio.emit("session_request", { conversation_id: conversationId });
     });
+
     sio.on("session_confirm", (data) => {
       const { conversation_id: conversationId } = data;
       setConversationId(conversationId);
+
       sio.emit("user_uttered", {
         message: "/get_started",
         session_id: conversationId,
       });
     });
+
     sio.on("bot_uttered", (data: { text: string }) => {
-      setMessages((prevState) => [
-        ...prevState,
-        { sender: "bot", text: data.text },
-      ]);
+      setQueue((prevState) => {
+        if (
+          !prevState.find(
+            (msg) => msg.text === data.text && msg.sender === "bot"
+          )
+        ) {
+          return [...prevState, { sender: "bot", text: data.text }];
+        }
+        return prevState;
+      });
+
+      setIsTyping(true);
     });
-
-    // sio.on("disconnect", () => {
-    // 	console.log("WebSocket disconnected");
-    // 	// setConnected(false);
-    // });
-
-    // sio.on("bot_uttered", (data: { text: string }) => {
-    // setMessages((prev) => [...prev, { sender: "bot", text: data.text }]);
-    // });
 
     return () => {
       sio.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (queue.length > 0) {
+      const timer = setTimeout(() => {
+        setMessages((prevState) => [...prevState, queue[0]]);
+        setQueue((prevState) => prevState.slice(1));
+      }, 2500);
+
+      return () => clearTimeout(timer);
+    } else {
+      setIsTyping(false);
+    }
+  }, [queue]);
 
   return (
     <ChatContext.Provider
@@ -111,6 +131,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         isUnsupportedModalOpen,
         isVoiceReadingEnabled,
         isVoiceInputEnabled,
+        isTyping,
         setMessages,
         setConversationId,
         setIsOpen,
@@ -122,6 +143,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         unsupportedMessage,
         setIsVoiceReadingEnabled,
         setIsVoiceInputEnabled,
+        setIsTyping,
       }}
     >
       {children}

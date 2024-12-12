@@ -28,7 +28,10 @@ responses:
   utter_out_of_scope:
     - text: "Przepraszam, ale tego nie rozumiem. Możesz sformułować pytanie inaczej?"
   utter_joke:
-    - text: "Dlaczego programista nie może się umówić na randkę? Bo zawsze ma zbyt wiele bugów!"
+    - text: |
+        Dlaczego programista nie może się umówić na randkę? 
+
+        Bo zawsze ma zbyt wiele bugów!
   utter_laugh:
     - text: "Haha, cieszę się, że Ci się podobało! 😄"
   utter_bot_challenge:
