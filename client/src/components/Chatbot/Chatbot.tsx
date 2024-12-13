@@ -15,13 +15,26 @@ function Chatbot() {
     socket,
     messages,
     isOpen,
+    conversationId,
     setIsOpen,
     isUnsupportedModalOpen,
     setIsUnsupportedModalOpen,
     unsupportedMessage,
+    firstMessageFromBot,
+    setFirstMessageFromBot,
   } = useChat();
 
-  const toggleChat = () => setIsOpen((prevState) => !prevState);
+  const toggleChat = () => {
+    setIsOpen((prevState) => !prevState);
+    console.log(firstMessageFromBot, conversationId);
+    if (!firstMessageFromBot) {
+      socket?.emit("user_uttered", {
+        message: "/get_started",
+        session_id: conversationId,
+      });
+      setFirstMessageFromBot(true);
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {

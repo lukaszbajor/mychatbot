@@ -20,6 +20,7 @@ interface ChatContextType {
   isVoiceReadingEnabled: boolean; // Nowa opcja
   isVoiceInputEnabled: boolean; // Nowa opcja
   isTyping: boolean;
+  firstMessageFromBot: boolean;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   setConversationId: React.Dispatch<React.SetStateAction<string | null>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,6 +33,7 @@ interface ChatContextType {
   setIsVoiceReadingEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsVoiceInputEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
+  setFirstMessageFromBot: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -56,6 +58,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isTyping, setIsTyping] = useState(false);
 
   const [queue, setQueue] = useState<Message[]>([]);
+
+  const [firstMessageFromBot, setFirstMessageFromBot] = useState(false);
 
   const showUnsupportedModal = (message: string) => {
     setUnsupportedMessage(message);
@@ -82,10 +86,12 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       const { conversation_id: conversationId } = data;
       setConversationId(conversationId);
 
-      sio.emit("user_uttered", {
-        message: "/get_started",
-        session_id: conversationId,
-      });
+      console.log(`Session_confirm: ${conversationId}`);
+
+      // sio.emit("user_uttered", {
+      //   message: "/get_started",
+      //   session_id: conversationId,
+      // });
     });
 
     sio.on("bot_uttered", (data: { text: string }) => {
@@ -144,6 +150,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         setIsVoiceReadingEnabled,
         setIsVoiceInputEnabled,
         setIsTyping,
+        firstMessageFromBot,
+        setFirstMessageFromBot,
       }}
     >
       {children}
