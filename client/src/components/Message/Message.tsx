@@ -37,7 +37,7 @@ function Message({ sender, text }: MessageProps) {
       return;
     }
     if ("speechSynthesis" in window && isSpeechSynthesisSupported) {
-      let cleanText = removeHtmlTags(text); // Usuwamy tagi HTML przed przekazaniem do syntezatora
+      let cleanText = removeHtmlTags(text);
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = "pl-PL";
       window.speechSynthesis.speak(utterance);

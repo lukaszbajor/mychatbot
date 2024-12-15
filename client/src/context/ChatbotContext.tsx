@@ -116,7 +116,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     console.log("WebSocket połączony. Rozpoczynamy sesję...");
-    socket?.emit("session_request", { conversation_id: null }); // Wysyłamy zapytanie o nową sesję
+    socket?.emit("session_request", { conversation_id: null });
   }, []);
 
   useEffect(() => {
