@@ -27,8 +27,6 @@ function ChatForm() {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  //mowa na tekst
-
   useEffect(() => {
     if (!isTyping) {
       textareaRef.current?.focus();
@@ -40,12 +38,12 @@ function ChatForm() {
   const recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
   if (recognition) {
-    recognition.lang = "pl-PL"; // Ustaw język na polski
+    recognition.lang = "pl-PL";
     recognition.continuous = false;
 
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
-      setInput((prevInput) => prevInput + " " + transcript); // Dodaj przetłumaczoną mowę do inputu
+      setInput((prevInput) => prevInput + " " + transcript);
     };
 
     recognition.onerror = (event: any) => {
@@ -77,7 +75,7 @@ function ChatForm() {
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault(); // Zapobiega dodaniu nowej linii w `<textarea>`
+      e.preventDefault();
       handleSendMessage();
     }
   };
@@ -87,7 +85,6 @@ function ChatForm() {
       setIsListening(true);
       recognition.start();
     } else {
-      // alert("Twoja przeglądarka nie obsługuje rozpoznawania mowy.");
       setIsUnsupportedModalOpen(true);
       showUnsupportedModal(
         "Twoja przeglądarka nie obsługuje funkcji rozpoznawania mowy."

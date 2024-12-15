@@ -2,7 +2,8 @@ import styles from "./Message.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import MessageLoader from "../MessageLoader/MessageLoader";
+
+import { removeHtmlTags } from "../../utils/removeHtmlTags";
 import { useChat } from "../../context/ChatbotContext";
 
 type MessageProps = {
@@ -11,11 +12,7 @@ type MessageProps = {
   prevSender?: "user" | "bot";
 };
 
-function Message({
-  sender,
-  text,
-}: // prevSender
-MessageProps) {
+function Message({ sender, text }: MessageProps) {
   const [showMessage, setShowMessage] = useState(sender !== "bot");
   const [activeSyntezor, setActiveSyntezor] = useState(false);
   const {
@@ -40,7 +37,8 @@ MessageProps) {
       return;
     }
     if ("speechSynthesis" in window && isSpeechSynthesisSupported) {
-      const utterance = new SpeechSynthesisUtterance(text);
+      let cleanText = removeHtmlTags(text); // Usuwamy tagi HTML przed przekazaniem do syntezatora
+      const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = "pl-PL";
       window.speechSynthesis.speak(utterance);
       setActiveSyntezor(true);

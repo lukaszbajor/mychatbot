@@ -7,8 +7,8 @@ import { useChat } from "../../context/ChatbotContext";
 function SurveyForm() {
   const { socket, isShowSurveyForm, setIsShowSurveyForm } = useChat();
   const [rating, setRating] = useState<number>(0);
-  const [surveyFields, setSurveyFields] = useState<any[]>([]); // Pola ankiety
-  const [comment, setComment] = useState<string>(""); // Wartość dla komentarza
+  const [surveyFields, setSurveyFields] = useState<any[]>([]);
+  const [comment, setComment] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,10 +18,8 @@ function SurveyForm() {
       { input: "Komentarz", value: comment },
     ];
 
-    // Wyślij dane do serwera
     socket?.emit("submit_survey", formData);
 
-    // Zamknij formularz
     setIsShowSurveyForm(false);
   };
 

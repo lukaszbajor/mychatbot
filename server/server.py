@@ -146,13 +146,13 @@ async def submit_survey(sid, data):
             response_text = (
                 f"Dziękujemy za wypełnienie ankiety!<br><br>"
                 f"Twoja ocena to: <b>{rating}</b>.<br>"
-                f"Twój komentarz: <i>'{comment or 'Brak komentarza'}'</i>"
+                f"Twój komentarz:<br> <i>'{comment or 'Brak komentarza'}'</i>"
             )
         else:
             response_text = (
                 f"Przykro nam, że bot nie spełnia Twoich oczekiwań.<br><br>"
                 f"Twoja ocena to: <b>{rating}</b>.<br>"
-                f"Twój komentarz: <i>'{comment or 'Brak komentarza'}'</i>"
+                f"Twój komentarz:<br> <i>'{comment or 'Brak komentarza'}'</i>"
             )
         await sio.emit("bot_uttered", data={"text": response_text}, to=sid)
 

@@ -17,8 +17,8 @@ interface ChatContextType {
   messages: Message[];
   isOpen: boolean;
   isUnsupportedModalOpen: boolean;
-  isVoiceReadingEnabled: boolean; // Nowa opcja
-  isVoiceInputEnabled: boolean; // Nowa opcja
+  isVoiceReadingEnabled: boolean;
+  isVoiceInputEnabled: boolean;
   isTyping: boolean;
   firstMessageFromBot: boolean;
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
@@ -74,10 +74,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     setIsUnsupportedModalOpen(false);
   };
 
-  // Inicjalizacja WebSocket
   useEffect(() => {
     setFirstMessageFromBot(true);
-    const sio = io("http://localhost:5000"); // Adres serwera WebSocket
+    const sio = io("http://localhost:5000");
 
     setSocket(sio);
 
@@ -93,11 +92,6 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       setFirstMessageFromBot(false);
 
       console.log(`Session_confirm2: ${conversationId}`);
-
-      // sio.emit("user_uttered", {
-      //   message: "/get_started",
-      //   session_id: conversationId,
-      // });
     });
 
     sio.on("bot_uttered", (data: { text: string }) => {
@@ -124,58 +118,6 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     console.log("WebSocket połączony. Rozpoczynamy sesję...");
     socket?.emit("session_request", { conversation_id: null }); // Wysyłamy zapytanie o nową sesję
   }, []);
-
-  // useEffect(() => {
-  //   const sio = io("http://localhost:5000"); // Inicjalizacja WebSocket
-  //   setSocket(sio); // Ustawienie socketu w stanie
-
-  //   sio.on("connect", () => {
-  //     console.log("WebSocket connected");
-
-  //     // Jeśli nie mamy session_id, wysyłamy żądanie o nową sesję
-  //     if (!conversationId) {
-  //       sio.emit("session_request", { conversation_id: null }); // Inicjujemy nową sesję
-  //     } else {
-  //       // Jeśli mamy conversation_id, kontynuujemy połączenie z istniejącą sesją
-  //       sio.emit("session_request", { conversation_id: conversationId });
-  //     }
-  //   });
-
-  //   sio.on("session_confirm", (data) => {
-  //     const { conversation_id } = data;
-  //     if (conversation_id) {
-  //       setConversationId(conversation_id); // Ustawiamy conversation_id
-  //       console.log("Session confirmed:", conversation_id);
-  //       if (!firstMessageFromBot) {
-  //         // Po potwierdzeniu sesji, wysyłamy zapytanie do bota
-  //         sio.emit("user_uttered", {
-  //           message: "/get_started",
-  //           session_id: conversation_id,
-  //         });
-  //       }
-  //     }
-  //     setFirstMessageFromBot(false); // Ustawiamy flagę, żeby nie wysyłać /get_started ponownie
-  //   });
-
-  //   sio.on("bot_uttered", (data: { text: string }) => {
-  //     setQueue((prevState) => {
-  //       if (
-  //         !prevState.find(
-  //           (msg) => msg.text === data.text && msg.sender === "bot"
-  //         )
-  //       ) {
-  //         return [...prevState, { sender: "bot", text: data.text }];
-  //       }
-  //       return prevState;
-  //     });
-
-  //     setIsTyping(true);
-  //   });
-
-  //   return () => {
-  //     sio.disconnect();
-  //   };
-  // }, [conversationId, firstMessageFromBot]);
 
   useEffect(() => {
     if (queue.length > 0) {
@@ -224,7 +166,6 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Hook do używania kontekstu w innych komponentach
 export const useChat = (): ChatContextType => {
   const context = useContext(ChatContext);
   if (!context) {

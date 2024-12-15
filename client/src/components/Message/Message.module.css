@@ -80,17 +80,17 @@ p {
 
 @keyframes pulse {
 	0% {
-	  box-shadow: 0 0 0 0 rgb(250, 248, 248); /* Start: mały cień */
+	  box-shadow: 0 0 0 0 rgb(250, 248, 248); 
 	}
 	50% {
-	  box-shadow: 0 0 15px 10px rgba(128, 128, 128, 0.3); /* Fala rośnie */
+	  box-shadow: 0 0 15px 10px rgba(128, 128, 128, 0.3); 
 	}
 	100% {
-	  box-shadow: 0 0 30px 20px rgba(255, 0, 0, 0); /* Fala zanika */
+	  box-shadow: 0 0 30px 20px rgba(255, 0, 0, 0); 
 	}
   }
   
-  /* Dodatkowy efekt fal radiowych */
+  
   .readMessageButton.active::after {
 	content: "";
 	position: absolute;
@@ -104,7 +104,7 @@ p {
 	animation: ripple 1.5s infinite;
   }
   
-  /* Fala radiowa */
+  
   @keyframes ripple {
 	0% {
 	  transform: translate(-50%, -50%) scale(1);

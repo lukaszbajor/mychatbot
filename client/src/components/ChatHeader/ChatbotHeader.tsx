@@ -7,10 +7,14 @@ import {
   faVolumeUp,
   faMicrophone,
   faStar,
+  faFilePdf,
+  faMicrophoneSlash,
+  faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useChat } from "../../context/ChatbotContext";
 import styles from "./ChatbotHeader.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import exportToPDF from "../../utils/exportToPDF";
 
 interface ChatbotHeaderProps {
   toggleChat: () => void;
@@ -18,10 +22,12 @@ interface ChatbotHeaderProps {
 
 function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
   const [moreBtnsIsOpen, setMoreBtnsIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const {
     setMessages,
     socket,
+    messages,
     conversationId,
     setConversationId,
     setIsOpen,
@@ -34,27 +40,40 @@ function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
     setIsShowSurveyForm,
   } = useChat();
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMoreBtnsIsOpen(false);
+    }
+  };
+
   function handleDisconnectChat() {
     setFirstMessageFromBot(true);
     if (socket) {
-      socket.disconnect(); // Rozłączamy socket
+      socket.disconnect();
       console.log("Disconnected from chat");
 
-      // Resetowanie wiadomości i conversationId
-      setMessages([]); // Czyszczenie wiadomości
-      setConversationId(null); // Resetowanie ID konwersacji
+      setMessages([]);
+      setConversationId(null);
 
-      // Ponowne połączenie i rozpoczęcie nowej konwersacji
-      socket.connect(); // Łączymy się ponownie
+      socket.connect();
       console.log("Reconnected to chat");
-
-      // Możesz tu dodać inicjalizację nowej sesji
-      //   socket.emit("session_request", { conversation_id: null }); // Rozpoczynamy nową konwersację
     }
 
     setMoreBtnsIsOpen(false);
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    if (moreBtnsIsOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [moreBtnsIsOpen]);
 
   return (
     <>
@@ -77,7 +96,7 @@ function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
         </div>
       </div>
       {moreBtnsIsOpen && (
-        <div className={styles.moreBtns}>
+        <div className={styles.moreBtns} ref={menuRef}>
           <button className={styles.optionBtn} onClick={handleDisconnectChat}>
             <FontAwesomeIcon icon={faTrashCan} />
             Zakończ chat
@@ -89,7 +108,9 @@ function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
               setMoreBtnsIsOpen(!moreBtnsIsOpen);
             }}
           >
-            <FontAwesomeIcon icon={faVolumeUp} />
+            <FontAwesomeIcon
+              icon={isVoiceReadingEnabled ? faVolumeXmark : faVolumeUp}
+            />
             {isVoiceReadingEnabled ? "Wyłącz czytanie" : "Włącz czytanie"}
           </button>
           <button
@@ -99,7 +120,9 @@ function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
               setMoreBtnsIsOpen(!moreBtnsIsOpen);
             }}
           >
-            <FontAwesomeIcon icon={faMicrophone} />
+            <FontAwesomeIcon
+              icon={isVoiceInputEnabled ? faMicrophoneSlash : faMicrophone}
+            />
             {isVoiceInputEnabled ? "Wyłącz mikrofon" : "Włącz mikrofon"}
           </button>
           <button
@@ -112,6 +135,16 @@ function ChatbotHeader({ toggleChat }: ChatbotHeaderProps) {
           >
             <FontAwesomeIcon icon={faStar} />
             Oceń chatbota
+          </button>
+          <button
+            className={styles.optionBtn}
+            onClick={() => {
+              exportToPDF(messages);
+              setMoreBtnsIsOpen(!moreBtnsIsOpen);
+            }}
+          >
+            <FontAwesomeIcon icon={faFilePdf} />
+            Zapisz rozmowę w PDF
           </button>
         </div>
       )}
