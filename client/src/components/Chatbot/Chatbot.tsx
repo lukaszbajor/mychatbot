@@ -13,7 +13,6 @@ function Chatbot() {
   const [animate, setAnimate] = useState(false);
   const {
     socket,
-    messages,
     isOpen,
     conversationId,
     setIsOpen,
@@ -26,14 +25,16 @@ function Chatbot() {
 
   const toggleChat = () => {
     setIsOpen((prevState) => !prevState);
+    // setFirstMessageFromBot(false);
     console.log(firstMessageFromBot, conversationId);
     if (!firstMessageFromBot) {
+      setFirstMessageFromBot(true);
       socket?.emit("user_uttered", {
         message: "/get_started",
         session_id: conversationId,
       });
-      setFirstMessageFromBot(true);
     }
+    setFirstMessageFromBot(true);
   };
 
   useEffect(() => {

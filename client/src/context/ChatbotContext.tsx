@@ -27,6 +27,7 @@ interface ChatContextType {
   setIsUnsupportedModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSpeechRecognitionSupported: boolean;
   isSpeechSynthesisSupported: boolean;
+  isShowSurveyForm: boolean;
   showUnsupportedModal: (message: string) => void;
   closeUnsupportedModal: () => void;
   unsupportedMessage: string | null;
@@ -34,6 +35,7 @@ interface ChatContextType {
   setIsVoiceInputEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
   setFirstMessageFromBot: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShowSurveyForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -60,6 +62,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [queue, setQueue] = useState<Message[]>([]);
 
   const [firstMessageFromBot, setFirstMessageFromBot] = useState(false);
+  const [isShowSurveyForm, setIsShowSurveyForm] = useState(false);
 
   const showUnsupportedModal = (message: string) => {
     setUnsupportedMessage(message);
@@ -73,6 +76,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
   // Inicjalizacja WebSocket
   useEffect(() => {
+    setFirstMessageFromBot(true);
     const sio = io("http://localhost:5000"); // Adres serwera WebSocket
 
     setSocket(sio);
@@ -80,13 +84,15 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     sio.on("connect", () => {
       console.log("WebSocket connected");
       sio.emit("session_request", { conversation_id: conversationId });
+      console.log(`Session_confirm: ${conversationId}`);
     });
 
     sio.on("session_confirm", (data) => {
       const { conversation_id: conversationId } = data;
       setConversationId(conversationId);
+      setFirstMessageFromBot(false);
 
-      console.log(`Session_confirm: ${conversationId}`);
+      console.log(`Session_confirm2: ${conversationId}`);
 
       // sio.emit("user_uttered", {
       //   message: "/get_started",
@@ -115,6 +121,63 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    console.log("WebSocket połączony. Rozpoczynamy sesję...");
+    socket?.emit("session_request", { conversation_id: null }); // Wysyłamy zapytanie o nową sesję
+  }, []);
+
+  // useEffect(() => {
+  //   const sio = io("http://localhost:5000"); // Inicjalizacja WebSocket
+  //   setSocket(sio); // Ustawienie socketu w stanie
+
+  //   sio.on("connect", () => {
+  //     console.log("WebSocket connected");
+
+  //     // Jeśli nie mamy session_id, wysyłamy żądanie o nową sesję
+  //     if (!conversationId) {
+  //       sio.emit("session_request", { conversation_id: null }); // Inicjujemy nową sesję
+  //     } else {
+  //       // Jeśli mamy conversation_id, kontynuujemy połączenie z istniejącą sesją
+  //       sio.emit("session_request", { conversation_id: conversationId });
+  //     }
+  //   });
+
+  //   sio.on("session_confirm", (data) => {
+  //     const { conversation_id } = data;
+  //     if (conversation_id) {
+  //       setConversationId(conversation_id); // Ustawiamy conversation_id
+  //       console.log("Session confirmed:", conversation_id);
+  //       if (!firstMessageFromBot) {
+  //         // Po potwierdzeniu sesji, wysyłamy zapytanie do bota
+  //         sio.emit("user_uttered", {
+  //           message: "/get_started",
+  //           session_id: conversation_id,
+  //         });
+  //       }
+  //     }
+  //     setFirstMessageFromBot(false); // Ustawiamy flagę, żeby nie wysyłać /get_started ponownie
+  //   });
+
+  //   sio.on("bot_uttered", (data: { text: string }) => {
+  //     setQueue((prevState) => {
+  //       if (
+  //         !prevState.find(
+  //           (msg) => msg.text === data.text && msg.sender === "bot"
+  //         )
+  //       ) {
+  //         return [...prevState, { sender: "bot", text: data.text }];
+  //       }
+  //       return prevState;
+  //     });
+
+  //     setIsTyping(true);
+  //   });
+
+  //   return () => {
+  //     sio.disconnect();
+  //   };
+  // }, [conversationId, firstMessageFromBot]);
+
+  useEffect(() => {
     if (queue.length > 0) {
       const timer = setTimeout(() => {
         setMessages((prevState) => [...prevState, queue[0]]);
@@ -138,6 +201,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         isVoiceReadingEnabled,
         isVoiceInputEnabled,
         isTyping,
+        isShowSurveyForm,
         setMessages,
         setConversationId,
         setIsOpen,
@@ -152,6 +216,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         setIsTyping,
         firstMessageFromBot,
         setFirstMessageFromBot,
+        setIsShowSurveyForm,
       }}
     >
       {children}

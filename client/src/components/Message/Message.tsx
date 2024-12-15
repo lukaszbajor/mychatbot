@@ -69,7 +69,7 @@ MessageProps) {
         className={`${styles.message} ${sender === "bot" && styles.botMessage}`}
       >
         <div className={styles.messageText}>
-          <p>{text}</p>
+          <p dangerouslySetInnerHTML={{ __html: text }}></p>
           {sender === "bot" && isVoiceReadingEnabled && (
             <button
               onClick={handleReadMessage}

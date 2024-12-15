@@ -1,0 +1,69 @@
+.ratingForm {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px solid rgb(35, 31, 67);
+    border-radius: 15px;
+    padding: 10px;
+  }
+  .closeSurvey{
+    position: absolute;
+    top: 0;
+    right: 10px;
+  }
+  
+  .ratingForm p {
+    margin-bottom: 5px;
+  }
+  
+  .ratingForm .star {
+    color: gray;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 2px;
+    transition: .3s;
+  }
+  .ratingForm .star:hover {
+    color: rgb(155, 140, 56);
+  }
+  
+  .ratingForm .activeStar {
+    color: gold;
+    font-size: 20px;
+    margin: 0 2px;
+    cursor: pointer;
+  }
+  
+  .ratingForm button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: rgb(35, 31, 67);
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: .3s;
+  }
+  .ratingForm button:hover{
+    background-color: rgb(46, 41, 83);
+  }
+  .ratingForm button.submit {
+    padding: 10px 15px;
+  }
+  .field{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .title{
+    margin: 10px 0;
+  }
+  .textarea{
+    width: 98%;
+    resize: none;
+    height: 100px;
+  }

@@ -6,9 +6,10 @@ import styles from "./Messages.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import MessageLoader from "../MessageLoader/MessageLoader";
+import SurveyForm from "../SurveyForm/SurveyForm";
 
 const Messages = () => {
-  const { messages, isTyping } = useChat();
+  const { messages, isTyping, isShowSurveyForm } = useChat();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToBottom = () => {
@@ -35,14 +36,15 @@ const Messages = () => {
 
   return (
     <div className={styles.messagesContainer} ref={messagesEndRef}>
-      {messages.map((message, index) => (
-        <Message
-          key={index}
-          sender={message.sender}
-          text={message.text}
-          // prevSender={index > 0 ? messages[index - 1].sender : undefined}
-        />
-      ))}
+      {!isShowSurveyForm &&
+        messages.map((message, index) => (
+          <Message
+            key={index}
+            sender={message.sender}
+            text={message.text}
+            // prevSender={index > 0 ? messages[index - 1].sender : undefined}
+          />
+        ))}
       {isTyping && (
         <div className={styles.typingContainer}>
           {" "}
@@ -52,6 +54,7 @@ const Messages = () => {
           <MessageLoader />
         </div>
       )}
+      {isShowSurveyForm && <SurveyForm />}
       {/* <div className={styles.scroll} ></div> */}
     </div>
   );

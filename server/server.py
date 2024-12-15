@@ -94,26 +94,6 @@ async def user_uttered(sid, data):
     logging.info(f"User_uttered: {sid}")
 
 
-# Krok 4: Odebranie odpowiedzi od Rasa
-# @sio.on("bot_uttered")
-# async def handle_bot_message(data):
-#     conversation_id = data.get("conversation_id")
-#     if not conversation_id:
-#         logging.error("No conversation_id in bot message")
-#         return
-
-#     # Znajdź SID na podstawie Conversation ID
-#     sid = next((k for k, v in sessions.items() if v == conversation_id), None)
-#     if not sid:
-#         logging.error(f"No client found for Conversation ID={conversation_id}")
-#         return
-
-#     # Przekaż wiadomość z Rasa do klienta
-#     bot_message = data.get("text", "No message from bot")
-#     logging.info(f"Sending message to client {sid}: {bot_message}")
-#     await sio.emit("bot_uttered", {"text": bot_message}, to=sid)
-
-
 # Krok 5: Rozłączenie klienta
 @sio.on("disconnect")
 async def disconnect(sid):
@@ -122,6 +102,59 @@ async def disconnect(sid):
     if sid in sessions:
         logging.info(f"Removing session for SID={sid}")
         sessions.pop(sid, None)
+
+
+@sio.on("get_survey")
+async def get_survey(sid, data):
+    conversation_id = data.get("conversation_id")
+    print("Moje dane:" + conversation_id)
+
+    survey = [
+        {"label": "Ocena bota", "type": "number", "length": 10},
+        {"label": "Komentarz", "type": "textarea", "length": 500},
+    ]
+
+    await sio.emit("get_survey_response", data=survey, to=sid)
+
+
+@sio.on("submit_survey")
+async def submit_survey(sid, data):
+    # rates_bot=[
+    #     {"input":"Ocena bota", "value":5},
+    #     {"input":"Komentarz", "value":"Średnio to działa"},
+    # ]
+
+    # if data[0]["value"] > 5:
+    #     await sio.emit(
+    #         "bot_uttered", data={"text": "Dziękujemy za wypełnienie ankiety! Twoja ocena to"}, to=sid
+    #     )
+    # else:
+    #     await sio.emit(
+    #         "bot_uttered",
+    #         data={"text": "Przykro nam, że bot nie spełnia Twoich oczekiwań :/"},
+    #         to=sid,
+    #     )
+
+    rating = next(
+        (item["value"] for item in data if item["input"] == "Ocena bota"), None
+    )
+    comment = next((item["value"] for item in data if item["input"] == "Komentarz"), "")
+
+    # Sprawdź ocenę i przygotuj odpowiedź
+    if rating is not None:
+        if rating > 5:
+            response_text = (
+                f"Dziękujemy za wypełnienie ankiety!<br><br>"
+                f"Twoja ocena to: <b>{rating}</b>.<br>"
+                f"Twój komentarz: <i>'{comment or 'Brak komentarza'}'</i>"
+            )
+        else:
+            response_text = (
+                f"Przykro nam, że bot nie spełnia Twoich oczekiwań.<br><br>"
+                f"Twoja ocena to: <b>{rating}</b>.<br>"
+                f"Twój komentarz: <i>'{comment or 'Brak komentarza'}'</i>"
+            )
+        await sio.emit("bot_uttered", data={"text": response_text}, to=sid)
 
 
 # Uruchomienie serwera
