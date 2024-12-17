@@ -14,6 +14,7 @@ type MessageProps = {
 };
 
 function Message({ sender, text, quick_replies }: MessageProps) {
+  // @ts-ignore
   const [showMessage, setShowMessage] = useState(sender !== "bot");
   const [activeSyntezor, setActiveSyntezor] = useState(false);
   const {
