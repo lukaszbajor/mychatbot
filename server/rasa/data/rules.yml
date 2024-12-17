@@ -1,32 +1,107 @@
 version: "3.1"
 
 rules:
-  - rule: Respond to greetings
+  - rule: Get Started
+    steps:
+      - intent: get_started
+      - action: utter_get_started
+
+  - rule: greet
     steps:
       - intent: greet
       - action: utter_greet
 
-  - rule: Handle goodbye
+  - rule: Respond to skills inquiry
     steps:
-      - intent: goodbye
-      - action: utter_goodbye
+      - intent: ask_skills
+      - action: utter_ask_skills
 
-  - rule: Handle unknown input
+  - rule: Respond to more skills inquiry
     steps:
-      - intent: out_of_scope
-      - action: utter_out_of_scope
+      - intent: ask_more_skills
+      - action: utter_ask_more_skills
 
-  - rule: Respond to jokes
+  - rule: Respond to experience inquiry
+    steps:
+      - intent: ask_experience
+      - action: utter_ask_experience
+
+  - rule: Respond to more experience inquiry
+    steps:
+      - intent: ask_more_experience
+      - action: utter_ask_more_experience
+
+  - rule: Respond to projects inquiry
+    steps:
+      - intent: ask_projects
+      - action: utter_ask_projects
+
+  - rule: Respond to more projects inquiry
+    steps:
+      - intent: ask_more_projects
+      - action: utter_ask_more_projects
+
+  - rule: Respond to mood inquiry
+    steps:
+      - intent: ask_mood
+      - action: utter_ask_mood
+
+  - rule: Odpowiedź na zły humor użytkownika
+    steps:
+      - intent: user_mood_bad
+      - action: utter_react_mood_bad
+
+  - rule: Respond to bot challenge
+    steps:
+      - intent: bot_challenge
+      - action: utter_bot_challenge
+
+  - rule: Respond to a joke request
     steps:
       - intent: joke
       - action: utter_joke
 
-  - rule: Respond to laughter
+  - rule: Respond to laugh
     steps:
       - intent: laugh
       - action: utter_laugh
 
-  - rule: Handle bot challenge
+  - rule: Respond to sad reaction
     steps:
-      - intent: bot_challenge
-      - action: utter_bot_challenge
+      - intent: laugh_sad
+      - action: utter_laugh_sad
+
+  - rule: Respond to goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Handle out of scope questions
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - rule: Respond to inquiry about Łukasz
+    steps:
+      - intent: about_me
+      - action: utter_about_me
+
+  - rule: Respond to education inquiry
+    steps:
+      - intent: education
+      - action: utter_education
+
+  - rule: Respond to contact information inquiry
+    steps:
+      - intent: contact
+      - action: utter_contact
+
+  - rule: Respond to plans inquiry
+    steps:
+      - intent: plans
+      - action: utter_plans
+
+  - rule: Respond to interests inquiry
+    steps:
+      - intent: interest
+      - action: utter_interests

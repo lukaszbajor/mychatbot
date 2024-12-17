@@ -6,29 +6,76 @@ nlu:
       - Cześć
       - Witaj
       - Hej
-      - Jak się masz?
+      - Hejka
+      - Siema
+      - Siemanko
+      - Dobry wieczór
+      - Dzień dobry
+
+  - intent: get_started
+    examples: |
+      - Cześć
+      - Witaj
+      - Hej
+      - Hejka
+      - Siema
+      - Siemanko
+      - Dobry wieczór
       - Dzień dobry
 
   - intent: ask_skills
     examples: |
+      - Umiejętności
       - Jakie masz umiejętności?
+      - Jakie umiejętności ma Łukasz?
       - W czym jesteś dobry?
       - Jakie technologie znasz?
       - Jakich narzędzi używasz?
+      - Co Łukasz potrafi robić?
+      - Skill
+
+  - intent: ask_more_skills
+    examples: |
+      - Co więcej Łukasz potrafi?
+      - Jakie jeszcze Łukasz ma umiejętności?
+      - Co jeszcze umiesz robić?
+      - Jakiego jeszcze masz skilla?
+      - Więcej umiejętności
+      - Więcej o umiejętnościach
+      - Coś więcej o umiejętnościach
 
   - intent: ask_experience
     examples: |
+      - Doświadczenie
       - Jakie masz doświadczenie?
       - Gdzie pracowałeś?
-      - Czy możesz opowiedzieć o swoich projektach?
       - Co robiłeś w swojej pracy?
+
+  - intent: ask_more_experience
+    examples: |
+      - Coś więcej o doświadczeniu
+      - Możesz powiedziec coś wiecej o doświadczeniu Łukasz?
+      - Czego jeszcze doświadczyłeś?
+      - Jakie jeszcze ma doświadczenie Łukasz?
+      - Jakie jeszcze masz doświadczenie?
+      - Więcej o doświadczeniu
 
   - intent: ask_projects
     examples: |
+      - Projekty
+      - Projekt
       - Jakie projekty stworzyłeś?
       - Opowiedz o swoich projektach.
+      - Czy możesz opowiedzieć o swoich projektach?
       - W jakie aplikacje pracowałeś?
-      - Co ciekawego zrobiłeś w React?
+
+  - intent: ask_more_projects
+    examples: |
+      - Jakie jeszcze projekty stworzyłeś?
+      - Jakie jeszcze projekty stworzył Łukasz?
+      - Więcej o projektach
+      - Czy możesz powiedzieć coś więcej o projektach?
+      - Opowiedz więcej o projektach.
 
   - intent: ask_mood
     examples: |
@@ -36,6 +83,18 @@ nlu:
       - Co u Ciebie?
       - Jakie masz samopoczucie?
       - Wszystko w porządku?
+      - Jak tam?
+      - Wszystko ok?
+
+  - intent: user_mood_bad
+    examples: |
+      - Średnio
+      - Mogłoby być lepiej
+      - Nie najlepiej
+      - Słabo
+      - Źle
+      - Mam zły dzień
+      - Jest mi smutno
 
   - intent: goodbye
     examples: |
@@ -44,6 +103,8 @@ nlu:
       - Żegnaj
       - Trzymaj się
       - Pa!
+      - Elo
+      - Eluwina
 
   - intent: out_of_scope
     examples: |
@@ -62,17 +123,34 @@ nlu:
       - Opowiedz kawał
       - Opowiedz kawała
       - Suchar
+      - Kawał
+      - Dawaj coś śmiesznego
 
   - intent: laugh
     examples: |
       - hahaha
-      - hah
       - hah
       - hehe
       - hehehe
       - śmieszne
       - to było zabawne
       - umieram ze śmiechu
+      - heuheu
+      - hihi
+      - to było dobre
+
+  - intent: laugh_sad
+    examples: |
+      - Nieśmieszne
+      - To ma być żart?!
+      - Słabo
+      - Żałosne
+      - Nie mam nastroju
+      - weź
+      - przestań
+      - nie popisuj sie
+      - daj spokój
+      - żal pl
 
   - intent: bot_challenge
     examples: |
@@ -80,3 +158,43 @@ nlu:
       - Czy jesteś człowiekiem?
       - Kim jesteś?
       - Z kim rozmawiam?
+      - Kto Ty?
+
+  - intent: about_me
+    examples: |
+      - Kim jest Łukasz?
+      - Opowiedz coś o Łukaszu
+      - Kto to Łukasz?
+      - Łukasz
+
+  - intent: education
+    examples: |
+      - Wykształcenie
+      - Jakie wykształcenie ma Łukasz?
+      - Jakie masz wykształcenie
+      - Szkoła
+      - Uczelnia
+      - Edukacja
+
+  - intent: plans
+    examples: |
+      - Plany
+      - Jakie plany ma Łukasz?
+      - Jakie masz plany?
+      - Nad czym obecnie pracujesz?
+      - Obecnie
+      - Co teraz robisz?
+      - Co teraz działasz?
+      - Nad czym Łukasz pracuje?
+
+  - intent: interests
+    examples: |
+      - Zainteresowania
+      - Czym sie interesujesz?
+      - Czym interesuje się Łukasz?
+      - Co cię interesuje?
+      - Co interesuje Łukasz?
+      - Co lubisz robić?
+      - Co po pracy?
+      - Hobby
+      - Lubieć

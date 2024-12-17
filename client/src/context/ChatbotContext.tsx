@@ -10,6 +10,7 @@ import { io, Socket } from "socket.io-client";
 interface Message {
   sender: "bot" | "user";
   text: string;
+  quick_replies?: { title: string; payload: string }[];
 }
 interface ChatContextType {
   socket: Socket | null;
@@ -94,20 +95,33 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       console.log(`Session_confirm2: ${conversationId}`);
     });
 
-    sio.on("bot_uttered", (data: { text: string }) => {
-      setQueue((prevState) => {
-        if (
-          !prevState.find(
-            (msg) => msg.text === data.text && msg.sender === "bot"
-          )
-        ) {
-          return [...prevState, { sender: "bot", text: data.text }];
-        }
-        return prevState;
-      });
+    sio.on(
+      "bot_uttered",
+      (data: {
+        quick_replies: { title: string; payload: string }[] | undefined;
+        text: string;
+      }) => {
+        setQueue((prevState) => {
+          if (
+            !prevState.find(
+              (msg) => msg.text === data.text && msg.sender === "bot"
+            )
+          ) {
+            return [
+              ...prevState,
+              {
+                sender: "bot",
+                text: data.text,
+                quick_replies: data.quick_replies,
+              },
+            ];
+          }
+          return prevState;
+        });
 
-      setIsTyping(true);
-    });
+        setIsTyping(true);
+      }
+    );
 
     return () => {
       sio.disconnect();
@@ -130,6 +144,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setIsTyping(false);
     }
+    console.log(messages);
   }, [queue]);
 
   return (

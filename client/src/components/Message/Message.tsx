@@ -9,13 +9,16 @@ import { useChat } from "../../context/ChatbotContext";
 type MessageProps = {
   sender: "user" | "bot";
   text: string;
+  quick_replies?: { title: string; payload: string }[];
   prevSender?: "user" | "bot";
 };
 
-function Message({ sender, text }: MessageProps) {
+function Message({ sender, text, quick_replies }: MessageProps) {
   const [showMessage, setShowMessage] = useState(sender !== "bot");
   const [activeSyntezor, setActiveSyntezor] = useState(false);
   const {
+    socket,
+    conversationId,
     isSpeechSynthesisSupported,
     showUnsupportedModal,
     isVoiceReadingEnabled,
@@ -66,8 +69,28 @@ function Message({ sender, text }: MessageProps) {
       <div
         className={`${styles.message} ${sender === "bot" && styles.botMessage}`}
       >
-        <div className={styles.messageText}>
+        <div
+          className={`${styles.messageText} ${
+            quick_replies && styles.messageTextWithBtns
+          }`}
+        >
           <p dangerouslySetInnerHTML={{ __html: text }}></p>
+          <div className={styles.messageButtons}>
+            {quick_replies?.map((button, idx) => (
+              <button
+                key={idx}
+                className={styles.button}
+                onClick={() => {
+                  socket?.emit("user_uttered", {
+                    session_id: conversationId,
+                    message: button.title,
+                  });
+                }}
+              >
+                {button.title}
+              </button>
+            ))}
+          </div>
           {sender === "bot" && isVoiceReadingEnabled && (
             <button
               onClick={handleReadMessage}

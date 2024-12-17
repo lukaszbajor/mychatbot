@@ -1,52 +1,154 @@
 version: "3.1"
 
+# stories:
+#   - story: Greet and ask about skills
+#     steps:
+#       - intent: greet
+#       - action: utter_greet
+#       - intent: ask_skills
+#       - action: utter_ask_skills
+
+#   - story: Greet, ask about experience
+#     steps:
+#       - intent: greet
+#       - action: utter_greet
+#       - intent: ask_experience
+#       - action: utter_ask_experience
+
+#   - story: Ask about projects
+#     steps:
+#       - intent: ask_projects
+#       - action: utter_ask_projects
+
+#   - story: Mood check
+#     steps:
+#       - intent: ask_mood
+#       - action: utter_ask_mood
+#       - intent: ask_mood
+#       - action: utter_ask_mood
+
+#   - story: Goodbye interaction
+#     steps:
+#       - intent: goodbye
+#       - action: utter_goodbye
+
+#   - story: Greet and tell a joke
+#     steps:
+#       - intent: greet
+#       - action: utter_greet
+#       - intent: joke
+#       - action: utter_joke
+
+#   - story: Laughing interaction
+#     steps:
+#       - intent: laugh
+#       - action: utter_laugh
+
+#   - story: Bot challenge and joking
+#     steps:
+#       - intent: bot_challenge
+#       - action: utter_bot_challenge
+#       - intent: joke
+#       - action: utter_joke
+
+#   - story: Fallback with buttons
+#     steps:
+#       - intent: out_of_scope
+#       - action: utter_out_of_scope
+#       - intent: ask_skills
+#       - action: utter_ask_skills
+
 stories:
-  - story: Greet and ask about skills
+  - story: Start conversation
+    steps:
+      - intent: get_started
+      - action: utter_get_started
+
+  - story: Greet
     steps:
       - intent: greet
       - action: utter_greet
+
+  - story: Ask for more skills
+    steps:
       - intent: ask_skills
       - action: utter_ask_skills
+      - intent: ask_more_skills
+      - action: utter_ask_more_skills
 
-  - story: Greet, ask about experience
+  - story: Ask experience details
     steps:
-      - intent: greet
-      - action: utter_greet
       - intent: ask_experience
       - action: utter_ask_experience
+      - intent: ask_more_experience
+      - action: utter_ask_more_experience
 
-  - story: Ask about projects
+  - story: Ask project details
     steps:
       - intent: ask_projects
       - action: utter_ask_projects
+      - intent: ask_more_projects
+      - action: utter_ask_more_projects
 
-  - story: Mood check
+  - story: Bot challenge and mood check
+    steps:
+      - intent: bot_challenge
+      - action: utter_bot_challenge
+      - intent: ask_mood
+      - action: utter_ask_mood
+
+  - story: Użytkownik czuje się źle
     steps:
       - intent: ask_mood
       - action: utter_ask_mood
-      - intent: ask_mood
-      - action: utter_ask_mood
+      - intent: user_mood_bad
+      - action: utter_react_mood_bad
 
-  - story: Goodbye interaction
+  - story: Joke interaction
+    steps:
+      - intent: joke
+      - action: utter_joke
+      - intent: laugh
+      - action: utter_laugh
+
+  - story: Sad reaction to a joke
+    steps:
+      - intent: joke
+      - action: utter_joke
+      - intent: laugh_sad
+      - action: utter_laugh_sad
+
+  - story: User asks about Łukasz
+    steps:
+      - intent: about_me
+      - action: utter_about_me
+
+  - story: Goodbye scenario
     steps:
       - intent: goodbye
       - action: utter_goodbye
 
-  - story: Greet and tell a joke
+  - story: Education inquiry
     steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: joke
-      - action: utter_joke
+      - intent: education
+      - action: utter_education
 
-  - story: Laughing interaction
+  - story: Ask for contact details
     steps:
-      - intent: laugh
-      - action: utter_laugh
+      - intent: contact
+      - action: utter_contact
 
-  - story: Bot challenge and joking
+  - story: User asks about plans
     steps:
-      - intent: bot_challenge
-      - action: utter_bot_challenge
-      - intent: joke
-      - action: utter_joke
+      - intent: plans
+      - action: utter_plans
+
+  - story: User asks about interests
+    steps:
+      - intent: interest
+      - action: utter_interests
+
+  - story: Out of scope question
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope

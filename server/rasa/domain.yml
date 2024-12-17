@@ -3,43 +3,160 @@ version: "3.1"
 intents:
   - greet
   - ask_skills
+  - ask_more_skills
   - ask_experience
+  - ask_more_experience
   - ask_projects
+  - ask_more_projects
   - ask_mood
+  - user_mood_bad
   - goodbye
   - out_of_scope
   - joke
   - laugh
+  - laugh_sad
   - bot_challenge
+  - about_me
+  - education
+  - contact
+  - plans
+  - interests
+  - get_started
 
 responses:
   utter_greet:
-    - text: "Cześć! W czym mogę pomóc?"
+    - text: |
+        Cześć! Jestem Wirtualnym Asystentem Łukasza. W czym mogę pomóc?
+
+        Zadaj mi pytanie lub wybierz jeden z poniższych przycisków:
+      buttons:
+        - title: "Umiejętności"
+          payload: "/ask_skills"
+        - title: "Doświadczenie"
+          payload: "/ask_experience"
+        - title: "Projekty"
+          payload: "/ask_projects"
+  utter_get_started:
+    - text: |
+        Cześć! Jestem Wirtualnym Asystentem Łukasza. W czym mogę pomóc?
+
+        Zadaj mi pytanie lub wybierz jeden z poniższych przycisków:
+      buttons:
+        - title: "Umiejętności"
+          payload: "/ask_skills"
+        - title: "Doświadczenie"
+          payload: "/ask_experience"
+        - title: "Projekty"
+          payload: "/ask_projects"
   utter_goodbye:
     - text: "Do zobaczenia! Powodzenia!"
+    - text: "Trzymaj się! Cześć!"
+    - text: "Dziękuję za rozmowę. Cześć"
   utter_ask_skills:
-    - text: "Pracuję z technologiami frontendowymi jak React i TypeScript, a także z backendem w Pythonie i Node.js."
+    - text: |
+        Łukasz na codzień pracuje w React, Pythonie oraz Rasie z wykorzystaniem websocketów. Aktualnie wspiera zespół w projektach przy chatbotach. 
+
+        Zna HTML, CSS (wraz z preprocesorem  SASS i metodologią BEM), JavaScript, Gulp - na których zjadł zęby tworząc strony internetowe dla lokalnych firm i znajomych. Nie są mu obce podstawy technologii backendowych takich jak Node.js, express.js czy Python.
+
+        Potrafi także odnaleźć się w relacyjnych bazach danych MySQL oraz posługiwać się narzędziami systemu kotroli wersji.
+  utter_ask_more_skills:
+    - text: "Łukasz potrafi pisać funkcjonalne testy automatyczne, a także testy E2E w Selenium IDE, Cypress i Playwright"
+    - text: "Łukasz wykonuje także zlecenia w zakresie Wordpressa i WooComerce"
+    - text: "Łukasz zna podstawy PHP czy Vue.js"
   utter_ask_experience:
-    - text: "Mam doświadczenie w testowaniu manualnym i automatycznym, tworzeniu aplikacji webowych i rozwijaniu botów."
+    - text: |
+        Pierwsze doświadczenie Łukasz zebrał już w technikum pracując dla jednej z włoskich firm w ramach miesięcznych praktyk. Kolejne doświadczenie zebrał na studiach w jednej Rzeszowskich firm pracując nad rozwiązaniami firmy w Angular i React.
+
+        Ma 1,5 roczne doświadczenie w testowaniu manualnym i automatycznym, tworząc scenariusze testowe między innymi w Selenium IDE, Cypress i Playwright, atakże w raportowaniu i dogłębnym szukaniu defektów w systemie.
+
+        Obecnie wspiera zespół w projektach przy chatbotach wykorzystując: React, Python, Rasa, Websockets.
+  utter_ask_more_experience:
+    - text: "Łukasz ma blisko czteroletnie doświadczenie jeśli chodzi o pisanie stron wizytówek czy prostych javascriptowych rozwiązań."
+    - text: "Łukasz ma doświadczenie z tworzeniem rozwiązań z zakresu Wordpressa i WooComerce."
+    - text: "Łukasz ma doświadczenie niekomercyjne ze starszymi technologiami takimi jak jQuery czy Bootstrap."
   utter_ask_projects:
-    - text: "Stworzyłem m.in. system do zarządzania finansami, aplikację kulinarną i kilka stron dla klientów w HTML, CSS i JS."
+    - text: |
+        Łukasz w React stworzył między innymi system do zarządzania finansami gospodarstwa domowego jako projekt do swojej pracy inżynierskiej czy system do zamawiania jedzenia. Oba projekty posiadają rejestracje i możliwość posiadania konta użytkownika w systemie.
+
+        Ponadto napisał kilka aplikacji w Vanilla JS np. grę, w której jest mozliwość wyboru postaci, korzystania z ataków specjalnych jak i uzdrawianiu wybranej postaci poprzez miktury lecznicze.
+
+        Na swoim koncie Łukasz ma także kilkanaście stron internetowych typu wizytówka, sklep internetowy przygotowany w Wordpress (WooCommerce), a także kilka projektów, które budowały jego umiejętności poprzez odwzorowanie oryginalnych projektów np. strona allegro.pl.
+
+        Jedna z ostatnich realizacji Łukasza. Link: <a href="https://lukaszbajor.github.io/KSM-salon-kosmetologiczny/" target="_blank"> Salon kosmetologiczny KSM </a>
+  utter_ask_more_projects:
+    - text: "Łukasz zbudował wiele pomniejszych projektów takich jak: mini aplikacja dla cytatów, gra typu Memory Game, a także brał udział w konkursie zbudowania najlepszej strony dla MMC School, gdzie jego projekt zajął ostatecznie trzecie miejsce."
+    - text: "Łukasz może pochwalić się także projektami ze studiów, aplikacją do zarządzania bibliotekę w PHP czy aplikacji zarządzającą fakturami w Vue.js!"
   utter_ask_mood:
     - text: "Dziękuję, czuję się dobrze. A jak Ty się masz?"
+    - text: "Jak na bota... to czuję sie całkiem dobrze, a Ty jak się masz?"
+    - text: "Jeśli tylko znam odpowiedź na Twoje pytanie to czuję się doskonale, dzięki!"
+  utter_react_mood_bad:
+    - text: "Przykro mi to słyszeć. Może mogę Ci jakoś pomóc?"
+    - text: "Szkoda, że masz taki dzień. Jeśli mogę coś dla Ciebie zrobić, daj znać!"
+    - text: "Mam nadzieję, że Twój dzień się poprawi! 🫂"
   utter_out_of_scope:
-    - text: "Przepraszam, ale tego nie rozumiem. Możesz sformułować pytanie inaczej?"
+    - text: "Wybacz, ale nie rozumiem Twojego pytania. Zadaj pytanie inaczej lub wybierz jedną z opcji poniżej:"
+      buttons:
+        - title: "Umiejętności"
+          payload: "/ask_skills"
+        - title: "Doświadczenie"
+          payload: "/ask_experience"
+        - title: "Projekty"
+          payload: "/ask_projects"
   utter_joke:
     - text: |
         Dlaczego programista nie może się umówić na randkę? 
 
         Bo zawsze ma zbyt wiele bugów!
+
+    - text: |
+        Jak nazywa się auto, które pomieści cztery dziki?
+
+        Fordzik
+
+    - text: |
+        Panie dyrektorze,czy mógłbym otrzymać dzień urlopu,aby pomóc teściowej przy przeprowadzce?
+
+        Wykluczone!!!!!
+
+        Bardzo dziękuje, wiedziałem że mogę na pana liczyć!
   utter_laugh:
     - text: "Haha, cieszę się, że Ci się podobało! 😄"
+    - text: "Dobre co? Fajnie, że i Tobie przypadło do gustu. 😄"
+    - text: "Wieeeem, umiem w żarty. 😄"
+    - text: "Czasami i robot bywa zabawny... 😄"
+  utter_laugh_sad:
+    - text: "Szkoda... Może następnym razem sie pośmiejesz."
+    - text: "Jestem tylko botem ale staram się jak mogę."
+    - text: "Przykro, że nie poprawiłem Twojego dnia. Byc może mój nastepny żart okaże się zbawienny."
+    - text: "Hmm.. Może niech robot zajmie się tym na czym zna sie najlepiej..."
   utter_bot_challenge:
     - text: "Jestem botem! Zawsze chętny do rozmowy, ale nie mam jeszcze poczucia humoru jak człowiek!"
     - text: "Tak, jestem botem! Ale nie martw się, jestem świetnym rozmówcą!"
     - text: "Oczywiście, że jestem botem! Chociaż, gdybyś mnie zapytał, chętnie bym się na chwilę 'oszukał' i poczuł jak człowiek!"
     - text: "Tak, to prawda. Botem jestem, ale chętnie porozmawiam jak człowiek, jeśli tylko chcesz!"
     - text: "Masz rację, jestem botem, ale zawsze gotowy na ciekawą rozmowę!"
+  utter_contact:
+    - text: "Jeśli masz pytania do Łukasza bądź szukasz osoby do współpracy przy stronach internetowych napisz ma e-mail: lukaszbajor01@gmail.com. Dodatkowy kontakt znajdziesz na tej stronie a także w CV, które także jest do pobrania na tej stronie."
+  utter_education:
+    - text: |
+        Łukasz jest technikiem informatykiem, który zdał wszystkie egzaminy zawodowe.
+
+        Posiada tytuł inżyniera na kierunku: Informatyka i ekonometria.
+
+        Posiada również tytuł magistra na kierunku: Informatyka.
+
+        Ciii... słyszałem, że myśli o podyplomówce...
+  utter_plans:
+    - text: "Obecnie Łukasz doszkala się w zakresie Reacta oraz Next.js"
+    - text: "Po pracy Łukasz szuka zleceń na strony internetowe, a jedną właśnie ma na wykończeniu."
+    - text: "Łukasz obecnie pracuje nad systemem z ofertami pracy. Ptaszki ćwierkają, że pozwoli użytkownikom logowac się do swoich kont, a także, aplikować na ofery i dodawć je do ulubionych."
+  utter_interests:
+    - text: "Łukasz głównie interesuje się piłką nożną a jego ulubiony klub to Arsenal Londyn."
+    - text: "Łukasz lubi muzykę rockową. Nie tylko słuchać, ale także grać piosenki na gitarze."
+    - text: "Łukasz lubi nowinki technologiczne, rozwijać się na froncie, tworzyć strony internetowe."
+  utter_about_me:
+    - text: "Mój twórca ma na imię Łukasz. Pracuje jako frontend developer i lubi wyzwania. Interesuje się tworzeniem stron internetowych,muzyką i piłką nożną. Ma 27 wiosen..."
 
 session_config:
   session_expiration_time: 60

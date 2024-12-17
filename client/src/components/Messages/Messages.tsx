@@ -29,7 +29,12 @@ const Messages = () => {
     <div className={styles.messagesContainer} ref={messagesEndRef}>
       {!isShowSurveyForm &&
         messages.map((message, index) => (
-          <Message key={index} sender={message.sender} text={message.text} />
+          <Message
+            key={index}
+            sender={message.sender}
+            text={message.text}
+            quick_replies={message.quick_replies}
+          />
         ))}
       {isTyping && (
         <div className={styles.typingContainer}>

@@ -1,4 +1,4 @@
-import styles from "./MessageLoader.module.css"; // Importujemy style
+import styles from "./MessageLoader.module.css"; 
 
 const MessageLoader = () => {
 	return (
