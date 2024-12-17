@@ -25,4 +25,4 @@ typing_extensions==4.12.2
 websockets==14.1
 wsproto==1.2.0
 yarl==1.18.3
-python==3.9.0
+
