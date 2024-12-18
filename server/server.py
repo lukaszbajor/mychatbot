@@ -6,7 +6,8 @@ from socketio import AsyncServer, AsyncClient
 
 # Konfiguracja serwera
 CONFIG = {
-    "SERVER_URL": "localhost",
+    "SERVER_URL": "0.0.0.0",
+    # "localhost",
     "SERVER_PORT": 5000,
     "RASA_SOCKET_URL": "https://mychatbot-rasa.onrender.com",
     # "http://localhost:5005",
