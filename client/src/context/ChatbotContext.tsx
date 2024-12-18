@@ -77,7 +77,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setFirstMessageFromBot(true);
-    const sio = io("http://localhost:5000");
+    const sio = io("https://mychatbot-p3tg.onrender.com", {
+      path: "/socket.io",
+    });
+
+    // "http://localhost:5000"
 
     setSocket(sio);
 
