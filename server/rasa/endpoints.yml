@@ -32,6 +32,12 @@
 #    username: <username used for authentication>
 #    password: <password used for authentication>
 
+tracker_store:
+  type: SQL
+  dialect: sqlite # typ bazy danych
+  url: null # adres, jeśli null, używa pliku lokalnego
+  db: rasa.db # plik bazy danych SQLite
+  login_db: null
 # Event broker which all conversation events should be streamed to.
 # https://rasa.com/docs/rasa/event-brokers
 

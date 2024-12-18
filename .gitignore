@@ -9,6 +9,8 @@ server/rasa/rasa-env/
 
 server/rasa/.rasa
 
+server/rasa/rasa.db
+
 # server/rasa/models
 
 # Opcjonalnie ignoruj pliki tymczasowe/środowiskowe
