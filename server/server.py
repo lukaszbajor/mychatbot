@@ -7,8 +7,9 @@ from socketio import AsyncServer, AsyncClient
 CONFIG = {
     "SERVER_URL": "localhost",
     "SERVER_PORT": 5000,
-    "RASA_SOCKET_URL": "http://localhost:5005",  # Adres Rasa
-    "RASA_SOCKET_PATH": "",  # Ścieżka Rasa WebSocket
+    "RASA_SOCKET_URL": "https://mychatbot-rasa.onrender.com",
+    # "http://localhost:5005",
+    "RASA_SOCKET_PATH": "/socket.io",  # Ścieżka Rasa WebSocket
 }
 
 # Tworzenie aplikacji Sanic i Socket.IO
