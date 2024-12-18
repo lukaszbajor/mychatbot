@@ -1,6 +1,6 @@
 import logging
 
-# import os
+import os
 from sanic import Sanic
 from socketio import AsyncServer, AsyncClient
 
@@ -164,4 +164,5 @@ async def submit_survey(sid, data):
 # Uruchomienie serwera
 if __name__ == "__main__":
     # port = int(os.getenv("PORT", 8000))
-    app.run(host=CONFIG["SERVER_URL"], port=CONFIG["SERVER_PORT"])
+    port = int(os.getenv("PORT", CONFIG["SERVER_PORT"]))
+    app.run(host=CONFIG["SERVER_URL"], port=port)
